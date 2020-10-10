@@ -21,7 +21,7 @@ func homePage(w http.ResponseWriter, r *http.Request){
 func getLocation(w http.ResponseWriter, r *http.Request) {
 	error := make(map[string]error)
 	ip := r.URL.Query().Get("ip")
-	if exceededLimitation(w, ip) {
+	if exceededLimitation(ip) {
 		json.NewEncoder(w).Encode(http.StatusTooManyRequests)
 		return
 	}
@@ -50,7 +50,7 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 
 func exceededLimitation(ip string) bool {
 	limitation, _ := os.LookupEnv("rate_limit")
-	strLimitation, _ := strconv.Atoi(limitation)git
+	strLimitation, _ := strconv.Atoi(limitation)
 	if ipToCount[ip] >= strLimitation {
 		return true
 	}
