@@ -48,9 +48,9 @@ func getLocation(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(location)
 }
 
-func exceededLimitation(w http.ResponseWriter, ip string) bool {
+func exceededLimitation(ip string) bool {
 	limitation, _ := os.LookupEnv("rate_limit")
-	strLimitation, _ := strconv.Atoi(limitation)
+	strLimitation, _ := strconv.Atoi(limitation)git
 	if ipToCount[ip] >= strLimitation {
 		return true
 	}
